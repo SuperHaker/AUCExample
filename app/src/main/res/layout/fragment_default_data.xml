@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
+        android:layout_gravity="bottom"
         app:tabIndicatorHeight="0dp"/>
 
     </FrameLayout>
