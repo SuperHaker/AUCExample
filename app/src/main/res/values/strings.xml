@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_data_fragment_title">Default Data</string>
+    <string name="my_data_fragment_title">My Data</string>
+</resources>
