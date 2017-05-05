@@ -6,6 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,7 +49,7 @@ public class MyDataAdapter extends RecyclerView.Adapter<MyDataAdapter.MyDataView
     }
 
      class MyDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+        RequestQueue queue;
         TextView product;
 
         public MyDataViewHolder(View itemView) {
@@ -50,8 +60,30 @@ public class MyDataAdapter extends RecyclerView.Adapter<MyDataAdapter.MyDataView
 
         @Override
         public void onClick(View view) {
+            String query = list.get(getAdapterPosition());
+            queue = Volley.newRequestQueue(context);
+            String url = "https://adurcupexamplerequest.firebaseio.com/Round_2/Default_Schema/Product_Details/" + query + ".json";
+            JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                    buildAlert(response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            queue.add(objectRequest);
 
         }
+
+        public void buildAlert(JSONObject object){
+            
+        }
+
     }
 
 }

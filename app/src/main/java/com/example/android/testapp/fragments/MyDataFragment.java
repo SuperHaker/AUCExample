@@ -49,7 +49,6 @@ public class MyDataFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 list.clear();
-                Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
                 try {
                     for (int i = 0; i < response.length(); i++) {
                         list.add((String) response.get(i));
