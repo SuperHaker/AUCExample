@@ -1,15 +1,20 @@
 package com.example.android.testapp.fragments;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -17,14 +22,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.testapp.MyDataAdapter;
 import com.example.android.testapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,16 +99,63 @@ public class MyDataFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//                LayoutInflater inflater = getActivity().getLayoutInflater();
-//                ListView listView = (ListView) inflater.inflate(R.layout.fab_dialog, null);
-//                ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), R.layout.listview_layout, );
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                final View v = inflater.inflate(R.layout.fab_dialog, null);
+                builder.setView(v)
+                        .setPositiveButton("Patch", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences sharedPref = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                                String token = sharedPref.getString("user_token", "");
+                                String key = ((EditText) v.findViewById(R.id.edittext_key)).getText().toString();
+                                String val = ((EditText) v.findViewById(R.id.edittext_value)).getText().toString();
+                                patchRequest(token, key, val);
+
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+                builder.create();
+                builder.show();
 
 
             }
         });
 
         return v;
+    }
+
+
+    public void patchRequest(String token, String key, String val){
+        String url = "https://adurcupexamplerequest.firebaseio.com/Round_2/Products/Product_Details.json/?auth=" + token;
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put(key, val);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PATCH, url, new JSONObject(map), new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(getContext(), response.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error patching", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+            }
+        });
+
+        request.setTag(TAG);
+        queue.add(request);
+
     }
 
     @Override

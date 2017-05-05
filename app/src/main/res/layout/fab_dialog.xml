@@ -1,8 +1,28 @@
-<ListView
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+    android:weightSum="1">
 
-    
-    
+
+    <EditText
+        android:id="@+id/edittext_key"
+        android:hint="Key"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"/>
+
+    <EditText
+        android:id="@+id/edittext_value"
+        android:hint="Value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"/>
+
+
+
+</LinearLayout>
+
+
+
