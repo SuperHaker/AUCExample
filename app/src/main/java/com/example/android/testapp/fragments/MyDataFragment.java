@@ -3,6 +3,7 @@ package com.example.android.testapp.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 public class MyDataFragment extends Fragment {
 
     MyDataAdapter adapter;
+    FloatingActionButton fab;
     RequestQueue queue = null;
     public static final String TAG = "VolleyRequest";
     ArrayList<String> list = new ArrayList<>();
@@ -79,10 +81,25 @@ public class MyDataFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_data, container, false);
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+        fab = (FloatingActionButton) v.findViewById(R.id.fab);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                LayoutInflater inflater = getActivity().getLayoutInflater();
+//                ListView listView = (ListView) inflater.inflate(R.layout.fab_dialog, null);
+//                ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), R.layout.listview_layout, );
+
+
+            }
+        });
+
         return v;
     }
 

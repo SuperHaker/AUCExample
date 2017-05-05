@@ -1,5 +1,6 @@
 package com.example.android.testapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,9 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.android.testapp.fragments.DefaultDataFragment;
 import com.example.android.testapp.fragments.MyDataFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -27,8 +32,30 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
-   private  class MyPagerAdapter extends FragmentPagerAdapter{
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.sign_out:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private  class MyPagerAdapter extends FragmentPagerAdapter{
 
         private MyPagerAdapter(FragmentManager fm) {
             super(fm);
