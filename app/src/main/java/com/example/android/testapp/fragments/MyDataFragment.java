@@ -24,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android.testapp.MyDataAdapter;
+import com.example.android.testapp.adapters.MyDataAdapter;
 import com.example.android.testapp.R;
 
 import org.json.JSONArray;

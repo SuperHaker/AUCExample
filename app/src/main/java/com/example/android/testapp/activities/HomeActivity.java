@@ -1,4 +1,4 @@
-package com.example.android.testapp;
+package com.example.android.testapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.android.testapp.R;
 import com.example.android.testapp.fragments.DefaultDataFragment;
 import com.example.android.testapp.fragments.MyDataFragment;
 import com.google.firebase.auth.FirebaseAuth;

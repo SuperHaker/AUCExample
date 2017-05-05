@@ -21,7 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.android.testapp.MyDataAdapter;
+import com.example.android.testapp.adapters.MyDataAdapter;
 import com.example.android.testapp.MyViewPager;
 import com.example.android.testapp.R;
 import com.example.android.testapp.adapters.MainPagerAdapter;

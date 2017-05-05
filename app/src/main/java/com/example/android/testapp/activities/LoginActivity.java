@@ -1,4 +1,4 @@
-package com.example.android.testapp;
+package com.example.android.testapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.android.testapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -65,10 +66,11 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString("user_token", idToken);
-                            editor.commit();
+                            editor.apply();
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                             finish();
                         } else {
+                            Toast.makeText(LoginActivity.this, "Error saving Token", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
